@@ -78,7 +78,7 @@ def train_model(data, weights, bias, l_rate, epochs):
         print("epoch", e)
         print(average_loss)
 
-        # builtin LOASS drawing
+        # builtin LOSS drawing
         ee +=1
         if ee %10 == 0:
             df = pd.DataFrame(epoch_loss)
@@ -93,16 +93,25 @@ def train_model(data, weights, bias, l_rate, epochs):
 
             surf = pygame.image.fromstring(raw_data, size, "RGB")
             screen.blit(surf, (500,50))
+
+            # Epochs display
+            epochs_count_text = font.render('Epochs: ' + str(ee) + ' ', True, [(255-col) for col in Screen_col], [col for col in Screen_col])
+            screen.blit(epochs_count_text, (650, 25))
+
             pygame.display.update()
 
 #train_model(data, weights, bias, l_rate, epochs)
-        
+
 #####
+
+# Font
+pygame.font.init()
+font = pygame.font.SysFont('chalkduster.ttf', 36)
 
 # my neuralnet drawing function
 def NN_draw(NN):
     c_x = 0
-    c_y = -50
+    c_y = -100
     y_space = 600
     x_space = 375
     distance_y = y_space / len(NN)
@@ -202,6 +211,7 @@ raw_data = renderer.tostring_rgb()
 train_i = 0
 animation = 'inactive'
 complite = False
+
 # while True
 while True:
 
@@ -222,9 +232,9 @@ while True:
     # screen
     if animation == 'inactive':
         if int(pygame.time.get_ticks() / 100) % 5 == 0:
-            screet_red = randint(1,225)
-            screen_green = randint(1,225)
-            screen_blue = randint(1,255)
+            screet_red = randint(25,225)
+            screen_green = randint(25,225)
+            screen_blue = randint(25,255)
             Screen_col = (screet_red, screen_green, screen_blue)
         screen.fill(Screen_col)
 
@@ -238,8 +248,7 @@ while True:
         surf = pygame.image.fromstring(raw_data, size, "RGB")
         screen.blit(surf, (500,50))
         
-        
-
+        # NN drawing
         NN_draw(NN)
 
         if train_i < 1:
@@ -247,6 +256,11 @@ while True:
 
             train_i+=1
 
+        # final number of Epochs
+        epochs_count_text = font.render('Epochs: ' + str(epochs) + ' ', True, [(255-col) for col in Screen_col])
+        screen.blit(epochs_count_text, (650, 25))
+
+        # final chart displaying
         df = pd.DataFrame(epoch_loss)
         df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = [(255-col)/255 for col in Screen_col])
         ax.get_legend().remove()
