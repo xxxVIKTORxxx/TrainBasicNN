@@ -17,4 +17,5 @@ https://youtu.be/xpPX3fBM9dU
 - Numpy
 - Pandas
 ____
-- matplotlib.pyplot for draw a chart in the end in .py file format
+
+* Mapped NN in Pygame
