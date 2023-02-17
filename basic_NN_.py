@@ -58,6 +58,7 @@ def update_bias(bias, l_rate, target, prediction):
     return bias + l_rate*(target-prediction)
 
 def train_model(data, weights, bias, l_rate, epochs):
+    ee=0
     for e in range(epochs):
         individual_loss = []
         for i in range(len(data)):
@@ -70,11 +71,28 @@ def train_model(data, weights, bias, l_rate, epochs):
             # gradient descent
             weights = update_weights(weights, l_rate, target, prediction, feature)
             bias = update_bias(bias, l_rate, target, prediction)
+
         average_loss = sum(individual_loss)/len(individual_loss)
         epoch_loss.append(average_loss)
         print("**************************")
         print("epoch", e)
         print(average_loss)
+
+        # builtin LOASS drawing
+        ee +=1
+        if ee %10 == 0:
+            df = pd.DataFrame(epoch_loss)
+            df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
+            ax.legend('')
+
+            canvas = agg.FigureCanvasAgg(fig)
+            canvas.draw()
+            renderer = canvas.get_renderer()
+            raw_data = renderer.tostring_rgb()
+
+            surf = pygame.image.fromstring(raw_data, size, "RGB")
+            screen.blit(surf, (500,50))
+            pygame.display.update()
 
 #train_model(data, weights, bias, l_rate, epochs)
         
@@ -199,6 +217,7 @@ while True:
 
     if train_i < 1:
         train_model(data, weights, bias, l_rate, epochs)
+
         df = pd.DataFrame(epoch_loss)
         df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
         ax.legend('')
