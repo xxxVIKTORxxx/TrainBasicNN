@@ -21,5 +21,5 @@ ____
 [Fork]
 * Mapped NN in Pygame
 
-![image](https://user-images.githubusercontent.com/109345462/219746040-6d3dda25-e0d8-4b63-83c0-b06159b78c11.png)
+![image](https://user-images.githubusercontent.com/109345462/219775815-c675f7e4-7f01-4fae-bfa9-29028cba5745.png)
 
