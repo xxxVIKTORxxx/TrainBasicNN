@@ -35,7 +35,7 @@ print(weights) #
 
 bias = 0.5
 l_rate = 0.1
-epochs = 50
+epochs = 500
 epoch_loss = []
 
 def get_weighted_sum(feature, weights, bias):
@@ -76,7 +76,7 @@ def train_model(data, weights, bias, l_rate, epochs):
         print("epoch", e)
         print(average_loss)
 
-train_model(data, weights, bias, l_rate, epochs)
+#train_model(data, weights, bias, l_rate, epochs)
         
 #####
 
@@ -149,7 +149,7 @@ def NN_draw(NN):
 
 layer_in = [i for i in range(len(data.columns))]
 layer_h1 = [i for i in range(len(weights))]
-layer_out = [data['targets']]
+layer_out = [i for i in range(len(data['targets']))]
 NN = layer_in,layer_h1,layer_out       
 neuron_stage = 'active'
 
@@ -167,9 +167,9 @@ fig = pylab.figure(figsize=[4, 4], # Inches
                    dpi=100,        # 100 dots per inch, so the resulting buffer is 400x400 pixels
                    )
 ax = fig.gca()
-df = pd.DataFrame(epoch_loss)
-df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
-ax.legend('')
+#df = pd.DataFrame(epoch_loss)
+#df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
+#ax.legend('')
 
 
 canvas = agg.FigureCanvasAgg(fig)
@@ -177,25 +177,38 @@ canvas.draw()
 renderer = canvas.get_renderer()
 raw_data = renderer.tostring_rgb()
 
-
+train_i = 0
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             exit()
 
-    
     window = pygame.display.set_mode((SIZE), DOUBLEBUF)
     screen = pygame.display.get_surface()
 
     size = canvas.get_width_height()
 
     surf = pygame.image.fromstring(raw_data, size, "RGB")
-    screen.blit(surf, (500,0))
+    screen.blit(surf, (500,50))
 
 
     NN_draw(NN)
-
     pygame.display.update()
+
+    if train_i < 1:
+        train_model(data, weights, bias, l_rate, epochs)
+        df = pd.DataFrame(epoch_loss)
+        df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
+        ax.legend('')
+
+        canvas = agg.FigureCanvasAgg(fig)
+        canvas.draw()
+        renderer = canvas.get_renderer()
+        raw_data = renderer.tostring_rgb()
+
+        train_i+=1
+
+
     clock.tick(60)
 
