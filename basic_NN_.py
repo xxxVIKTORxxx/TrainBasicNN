@@ -196,27 +196,50 @@ canvas.draw()
 renderer = canvas.get_renderer()
 raw_data = renderer.tostring_rgb()
 
+# preset
 train_i = 0
+animation = 'inactive'
+
+# while True
 while True:
+
+    # events
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             exit()
 
-    window = pygame.display.set_mode((SIZE), DOUBLEBUF)
-    screen = pygame.display.get_surface()
-
-    size = canvas.get_width_height()
-
-    surf = pygame.image.fromstring(raw_data, size, "RGB")
-    screen.blit(surf, (500,50))
+        if animation == 'inactive':
+            keys = pygame.key.get_pressed()    
+            if keys[pygame.K_SPACE]:
+                animation = 'active'
+        
 
 
-    NN_draw(NN)
-    pygame.display.update()
+    # screen
+    if animation == 'inactive':
+        if int(pygame.time.get_ticks() / 100) % 5 == 0:
+            screet_red = randint(1,225)
+            screen_green = randint(1,225)
+            screen_blue = randint(1,255)
+            Screen_col = (screet_red, screen_green, screen_blue)
+        screen.fill(Screen_col)
 
-    if train_i < 1:
-        train_model(data, weights, bias, l_rate, epochs)
+    if animation == 'active':
+        
+        window = pygame.display.set_mode((SIZE), DOUBLEBUF)
+
+        size = canvas.get_width_height()
+        screen.fill(Screen_col)
+        surf = pygame.image.fromstring(raw_data, size, "RGB")
+        screen.blit(surf, (500,50))
+
+        NN_draw(NN)
+
+        if train_i < 1:
+            train_model(data, weights, bias, l_rate, epochs)
+
+            train_i+=1
 
         df = pd.DataFrame(epoch_loss)
         df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
@@ -227,8 +250,7 @@ while True:
         renderer = canvas.get_renderer()
         raw_data = renderer.tostring_rgb()
 
-        train_i+=1
 
-
+    pygame.display.update()
     clock.tick(60)
 
