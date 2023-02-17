@@ -147,12 +147,16 @@ def NN_draw(NN):
             pygame.draw.circle(screen, neuron_color, coords, [radius for radius in radiuses][i])
             i+=1
 
+# NN sctructure for drawing
 layer_in = [i for i in range(len(data.columns))]
 layer_h1 = [i for i in range(len(weights))]
 layer_out = [i for i in range(len(data['targets']))]
-NN = layer_in,layer_h1,layer_out       
+NN = layer_in,layer_h1,layer_out 
+# make neuron color animated or not ('active' or 'inactive')      
 neuron_stage = 'active'
 
+
+# Pygame
 pygame.init()
 
 screen = pygame.display.set_mode(SIZE)
@@ -167,9 +171,6 @@ fig = pylab.figure(figsize=[4, 4], # Inches
                    dpi=100,        # 100 dots per inch, so the resulting buffer is 400x400 pixels
                    )
 ax = fig.gca()
-#df = pd.DataFrame(epoch_loss)
-#df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
-#ax.legend('')
 
 
 canvas = agg.FigureCanvasAgg(fig)
