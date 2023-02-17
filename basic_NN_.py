@@ -30,6 +30,7 @@ def generate_data(n_features, n_values):
     
 data, weights = generate_data(4,3)
 print(data)
+print(weights) #
 
 
 bias = 0.5
@@ -147,7 +148,7 @@ def NN_draw(NN):
             i+=1
 
 layer_in = [i for i in range(len(data.columns))]
-layer_h1 = [weights]
+layer_h1 = [i for i in range(len(weights))]
 layer_out = [data['targets']]
 NN = layer_in,layer_h1,layer_out       
 neuron_stage = 'active'
