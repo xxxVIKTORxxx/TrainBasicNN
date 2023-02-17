@@ -82,7 +82,7 @@ def train_model(data, weights, bias, l_rate, epochs):
         ee +=1
         if ee %10 == 0:
             df = pd.DataFrame(epoch_loss)
-            df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
+            df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = 'steelblue')
             ax.legend('')
 
             canvas = agg.FigureCanvasAgg(fig)
@@ -242,7 +242,7 @@ while True:
             train_i+=1
 
         df = pd.DataFrame(epoch_loss)
-        df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs')
+        df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = 'steelblue')
         ax.legend('')
 
         canvas = agg.FigureCanvasAgg(fig)
