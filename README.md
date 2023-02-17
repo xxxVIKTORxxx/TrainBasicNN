@@ -20,6 +20,5 @@ ____
 
 * Mapped NN in Pygame
 
-![image](https://user-images.githubusercontent.com/109345462/219667470-7a164a5b-f216-40e6-a64d-4ed70b8828e5.png)
 ![image](https://user-images.githubusercontent.com/109345462/219746040-6d3dda25-e0d8-4b63-83c0-b06159b78c11.png)
 
