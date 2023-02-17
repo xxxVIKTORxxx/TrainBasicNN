@@ -82,8 +82,9 @@ def train_model(data, weights, bias, l_rate, epochs):
         ee +=1
         if ee %10 == 0:
             df = pd.DataFrame(epoch_loss)
-            df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = 'steelblue')
-            ax.legend('')
+            df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = [(255-col)/255 for col in Screen_col])
+            ax.get_legend().remove()
+            ax.set_facecolor([col/255 for col in Screen_col])
 
             canvas = agg.FigureCanvasAgg(fig)
             canvas.draw()
@@ -188,6 +189,7 @@ clock = pygame.time.Clock()
 fig = pylab.figure(figsize=[4, 4], # Inches
                    dpi=100,        # 100 dots per inch, so the resulting buffer is 400x400 pixels
                    )
+
 ax = fig.gca()
 
 
@@ -199,7 +201,7 @@ raw_data = renderer.tostring_rgb()
 # preset
 train_i = 0
 animation = 'inactive'
-
+complite = False
 # while True
 while True:
 
@@ -213,6 +215,7 @@ while True:
             keys = pygame.key.get_pressed()    
             if keys[pygame.K_SPACE]:
                 animation = 'active'
+
         
 
 
@@ -231,8 +234,11 @@ while True:
 
         size = canvas.get_width_height()
         screen.fill(Screen_col)
+        fig.patch.set_facecolor([col/255 for col in Screen_col])
         surf = pygame.image.fromstring(raw_data, size, "RGB")
         screen.blit(surf, (500,50))
+        
+        
 
         NN_draw(NN)
 
@@ -242,15 +248,20 @@ while True:
             train_i+=1
 
         df = pd.DataFrame(epoch_loss)
-        df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = 'steelblue')
-        ax.legend('')
+        df_plot = df.plot(kind="line", grid=True, ax=ax, title='Loss', xlabel='Epochs', color = [(255-col)/255 for col in Screen_col])
+        ax.get_legend().remove()
+        ax.set_facecolor([col/255 for col in Screen_col])
 
         canvas = agg.FigureCanvasAgg(fig)
         canvas.draw()
         renderer = canvas.get_renderer()
         raw_data = renderer.tostring_rgb()
 
+        if event.type == KEYDOWN:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                animation = 'inactive'
+
 
     pygame.display.update()
     clock.tick(60)
-
