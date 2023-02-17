@@ -19,6 +19,5 @@ https://youtu.be/xpPX3fBM9dU
 ____
 
 * Mapped NN in Pygame
-![image](https://user-images.githubusercontent.com/109345462/219662349-a1048f25-3b6e-46b2-ab33-d6024594a44e.png)
-![image](https://user-images.githubusercontent.com/109345462/219662880-415e1b20-e60f-492c-b1c9-3d5322cb6ccb.png)
+
 
