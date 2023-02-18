@@ -2,7 +2,7 @@
 train a simple neural network with only Numpy and Pandas
 <br>
 <br>
-![image](https://user-images.githubusercontent.com/109345462/219877468-502826a7-765e-4d38-9142-c3d5013bec85.png)
+![image](https://user-images.githubusercontent.com/109345462/219877538-c1f9275f-712b-4575-b59e-939366020003.png)
 <br>
 <h2>Watch on YouTube</h2>
 This repository was created to accomodate my YouTube tutorial:
